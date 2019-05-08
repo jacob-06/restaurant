@@ -1,0 +1,37 @@
+<?php if (  !empty($_SESSION['user']) ): ?>
+	<h3 style="text-align: center;margin: 1.25em 0;color: #339966;font-family: 'Oleo Script Swash Caps', cursive; font-size: 2em;">PANIER</h3>
+	<table class="generic-table meal-list" style="text-align: center;">
+		<thead>
+		    <tr style="font-weight: bold;font-size: 1.2em;">
+		    	<td>USER</td>
+		    	<td>PRODUCT</td>
+		    	<td>PRICE</td>
+		    	<td>QTE</td>
+		    	<td>TOTAL PRICE</td>
+		    	<td></td>
+		    </tr>
+		</thead>
+	    <tbody>
+			<?php foreach ($key as $panier): ?>
+				<tr>
+					<td class="uname"><?= $panier['user_name']; ?></td>
+					<td class="oname"><?= $panier['order_name']; ?></td>
+					<td class="oprice"><?= $panier['order_price']; ?></td>
+					<td class="oqte"><?= $panier['order_qte']; ?></td>
+					<td class="otprice"><?= $panier['order_tprice']; ?></td>
+					<td><a href="">DELETE</a></td>
+				</tr>
+			<?php endforeach; ?>
+	    </tbody>
+	    <tfoot>
+	    	<tr>
+	    		<td style="text-align: center;" colspan="6"><button onclick="valider()" style="text-align: center;border: 1px solid gray;box-shadow: 1px 1px 1px gray,-1px -1px 1px gray;border-radius: 25px;padding: 5px;color: black" href="">VALIDER</button></td>
+	    	</tr>
+	    </tfoot>
+	</table>
+<?php endif ?>
+<?php if (  empty($_SESSION['user']) )
+	{
+		header ('Location: '.$requestUrl.'/menu');
+	}
+?>

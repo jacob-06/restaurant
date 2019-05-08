@@ -1,0 +1,23 @@
+<?php /*
+	var_dump($_SESSION['admin']);*/
+	if (!empty($_SESSION['admin'])) 
+		{
+			$url = "admin";
+            $http = new Http();
+            $red  = $http->redirectTo($url);
+		}
+
+?>
+<?php if (empty($_SESSION['admin'])):?>
+	<div class="signup">
+				<form class="info_sign_up front" action="<?= $requestUrl; ?>/admin/login" method="post" enctype="multipart/form-data">
+					<fieldset class="login">
+						<legend>LOG IN </legend>
+						<input type="hidden" name="checkup" value="login">
+						<input type="email" name="email" placeholder="your email">
+						<input type="password" name="password" placeholder="your password">
+						<input type="submit" name="submit" id="but_sign_up">
+					</fieldset>
+				</form>
+		</div>
+<?php endif ; ?>

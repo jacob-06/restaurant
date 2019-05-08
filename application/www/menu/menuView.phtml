@@ -1,0 +1,119 @@
+<!-- Message de notification -->
+
+<!-- Code HTML à écrire -->
+
+
+<!-- Liste des aliments -->
+<h3 class="cap_center">Carte du restaurant</h3>
+<!-- Code HTML à écrire -->
+<!-- user info -->
+    <?php if (!empty($_SESSION)): ?>
+        <div class="card" style="overflow:hidden;text-align: center;height: 150px;width: 150px;">
+        <div class="card-body" >
+            <div style="background-image: url('<?= $wwwUrl; ?>/images/users/<?= $user['Image']; ?>'); background-size: cover;background-position: center;height: 85px;width: 85px;border-radius: 50%;margin: -16px auto;">
+            </div>
+        </div>
+        <div class="card-body">
+            <p class="card-text">hello <?= $user['Name']; ?><a href="<?= $requestUrl; ?>/panier"><i class="fas fa-shopping-cart"></i></a></p>
+        </div>
+        </div>
+    <?php endif ?>
+<!-- menu body -->
+    <div class="container">
+        <div class="row">
+        <?php foreach ($meal as $meals): ?>
+            <!-- meals -->
+                <div class="col-md-4 card_height">
+                <div class="card flex_son" style="width: 18rem;">
+                    <div class="img_back" style="background-image: url('<?= $wwwUrl; ?>/images/meals/<?= $meals['Photo']; ?>');background-size: cover;background-position: center;"></div>
+                    <div class="card-body">
+                    <h5 class="card-title">
+                        <?= $meals['Name']; ?>
+                    </h5>
+                    <div class="desc">
+                        <p class="card-text">
+                        <?= $meals['Description']; ?>
+                        </p>
+                    </div>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item" id="price"><?= $meals['SalePrice']; ?> $</li>
+                    <li class="list-group-item"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#d-<?= $meals['Id']; ?>">ORDER</button></li>
+                    </ul>
+                </div>
+                </div>
+            <?php if (  empty($_SESSION['user']) ): ?>
+            <!-- order qte if already log in -->  
+                <div class="modal fade" id="d-<?= $meals['Id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">your oder</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                        <p>
+                        <span>name</span> : <span id="panier_meals_name"><?= $meals['Name']; ?></span>
+                        </p>
+                        <p>
+                        <span>unit price</span> : <span id="panier_meals_price"><?= $meals['SalePrice']; ?> $</span>
+                        </p>
+                        <input type="hidden" name="hidden" id="<?= $meals['Name']; ?>" value="<?= $meals['Id']; ?>">
+                        <input onchange="save(this)" data-stck="<?= $meals['QuantityInStock']; ?>" data-id="<?= $meals['Id']; ?>"  data-price="<?= $meals['SalePrice']; ?>"  type="number" name="qte" id="qte-<?= $meals['Id']; ?>" placeholder="Qté">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"  data-price="<?= $meals['SalePrice']; ?>"  data-name="<?= $meals['Name']; ?>"data-dismiss="modal"  onclick="check(this)">save</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            <?php endif ?>
+            <?php if (  !empty($_SESSION['user']) ): ?>
+            <!-- LOG IN/SIGN UP -->
+                <div class="modal fade" id="d-<?= $meals['Id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">LOG IN/SIGN UP</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                        <div class="signup">
+                        <fieldset class="info_sign_up login back">
+                            <legend>SIGN UP</legend>
+                            <form action="<?= $requestUrl; ?>/menu" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="checkup" value="signup">
+                            <input type="email" name="email" placeholder="your email">
+                            <input type="password" name="password" placeholder="your password">
+                            <input type="text" name="name" placeholder="your full name">
+                            <input type="text" name="adress" placeholder="your adress">
+                            <input type="text" name="phone" placeholder="your phone number">
+                            <input type="text" name="zip" placeholder="your zip">
+                            <input type="file" name="image" value="your profil">
+                            <input type="submit" name="submit" id="but_sign_up">
+                            <a class="btn_switch2" >you already have an account</a>
+                            </form>
+                        </fieldset>
+                        <form class="info_sign_up front" action="<?= $requestUrl; ?>/menu" method="post" enctype="multipart/form-data">
+                            <fieldset class="login">
+                            <legend>LOG IN </legend>
+                            <input type="hidden" name="checkup" value="login">
+                            <input type="email" name="email" placeholder="your email">
+                            <input type="password" name="password" placeholder="your password">
+                            <input type="submit" name="submit" id="but_sign_up">
+                            <a class="btn_switch">you're not a member yet</a>
+                            </fieldset>
+                        </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            <?php endif ?>
+        <?php endforeach; ?>
+        </div>
+    </div>

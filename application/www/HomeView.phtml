@@ -1,0 +1,46 @@
+
+  
+
+
+
+
+
+<nav class="homeview navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="<?= $requestUrl; ?>/menu">menu</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?= $requestUrl; ?>/users/signup">log in</a>
+      </li>
+    </ul>
+  </div>
+</nav> 
+<!-- slider   -->
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/restaurant/application/www/images/banner-bg.jpg" class="d-block w-100 heigh" alt="active">
+        </div>
+        <?php foreach ($key as $meals): ?>
+            <div class="carousel-item">
+                <div style="background-image: url('<?= $wwwUrl; ?>/images/meals/<?= $meals['Photo']; ?>');background-size: cover;background-position: center;min-height: 500px;" class="d-block w-100 heigh" >
+                    <div class="content" style="text-align: center;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: #22222226;
+		padding-left: 150px;
+		padding-right: 150px;
+		color: #D0FFFF;">
+                        <h3><?= $meals['Name']; ?></h3>
+                        <p><?= $meals['Description']; ?></p>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
